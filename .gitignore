@@ -171,7 +171,7 @@ a.out
 *.doc
 *.odt
 *.yml
-*.xml
+#*.xml
 *.html
 *.lst
 *.info

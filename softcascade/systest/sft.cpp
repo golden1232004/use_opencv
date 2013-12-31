@@ -98,7 +98,8 @@ int main(int argc, char** argv)
 
     // 1. load config
     sft::Config cfg;
-    fs["config"] >> cfg;
+    // fs["config"] >> cfg;
+    fs["softcascade"] >> cfg;
     std::cout << std::endl << "Training will be executed for configuration:" << std::endl << cfg << std::endl;
 
     // 2. check and open output file

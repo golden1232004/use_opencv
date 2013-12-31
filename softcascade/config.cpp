@@ -47,7 +47,7 @@ sft::Config::Config(): seed(0) {}
 
 void sft::Config::write(cv::FileStorage& fs) const
 {
-    fs << "{"
+    fs << "softcascade" << "{"
        << "trainPath"    << trainPath
        << "testPath"     << testPath
 
