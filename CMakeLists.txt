@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 2.8)
+project(use_opencv)
+
+if (CMAKE_COMPILER_IS_GNUC OR CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif ()
+
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+
+include_directories(/usr/local/include/)  
+find_package(OpenCV REQUIRED)
+
+option(BUILD_APP_OBJDETECT_LBP "build object detect with lbp feature" OFF)
+if (BUILD_APP_OBJDETECT_LBP)
+  add_definitions(-DBUILD_APP_OBJDETECT_LBP)
+  add_subdirectory(objDetect_LBP)
+endif ()
+option(BUILD_APP_SOFTCASCADE "build soft cascade" OFF)
+if (BUILD_APP_SOFTCASCADE)
+  add_definitions(-DBUILD_APP_SOFTCASCADE)
+  add_subdirectory(softcascade)
+endif()
