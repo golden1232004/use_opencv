@@ -8,8 +8,8 @@
   <offset>
     0 0</offset>
   <octaves>0</octaves>
-  <positives>2372</positives>
-  <negatives>1023</negatives>
+  <positives>2370</positives>
+  <negatives>1020</negatives>
   <btpNegatives>6364360</btpNegatives>
   <shrinkage>1</shrinkage>
   <treeDepth>2</treeDepth>

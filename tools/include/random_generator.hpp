@@ -8,6 +8,8 @@ public:
     Random ();
     Random (unsigned seed, float low = 0.0, float high = 1.0);
     float nextRand();
+    void  setRange(float low = 0.0, float high = 1.0);
+    unsigned getMaxRandom();
 
 private:
     float m_low;
