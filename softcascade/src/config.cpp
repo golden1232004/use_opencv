@@ -43,7 +43,10 @@
 #include <sft/config.hpp>
 #include <iomanip>
 
-sft::Config::Config(): seed(0) {}
+sft::Config::Config(): seed(0) 
+{
+   
+}
 
 void sft::Config::write(cv::FileStorage& fs) const
 {

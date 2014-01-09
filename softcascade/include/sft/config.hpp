@@ -113,9 +113,11 @@ struct Config
     int poolSize;
 
     // file name to store cascade
+    // note: it is cascade name, not file name.
     string cascadeName;
 
     // path to resulting cascade
+    // note: the anotation above may be wrong, the mean of outXmlPath is xml format file.
     string outXmlPath;
 
     // seed for random generation

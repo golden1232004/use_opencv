@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <opencv_storage>
 <softcascade>
-  <trainPath>"/home/golden/Codes/opencv_xie/train/trainingfaces_24-24.vec"</trainPath>
+  <trainPath>"/home/golden/Codes/opencv_xie/train"</trainPath>
   <testPath>""</testPath>
   <modelWinSize>
     24 24</modelWinSize>
   <offset>
     0 0</offset>
-  <octaves></octaves>
-  <positives>2000</positives>
-  <negatives>2000</negatives>
+  <octaves>0</octaves>
+  <positives>2372</positives>
+  <negatives>1023</negatives>
   <btpNegatives>6364360</btpNegatives>
-  <shrinkage>0</shrinkage>
-  <treeDepth>10</treeDepth>
-  <weaks>0</weaks>
+  <shrinkage>1</shrinkage>
+  <treeDepth>2</treeDepth>
+  <weaks>22</weaks>
   <poolSize>10</poolSize>
   <cascadeName>"softcascade"</cascadeName>
   <outXmlPath>"/home/golden/Codes/opencv_xie/train/softcascade/softcascade_classifier.xml"</outXmlPath>
-  <seed>0</seed>
-  <featureType>"haar"</featureType></softcascade>
+  <seed>30</seed>
+  <featureType>"HOG6MagLuv"</featureType></softcascade>
 </opencv_storage>
