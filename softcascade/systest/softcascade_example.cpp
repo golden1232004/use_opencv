@@ -24,8 +24,12 @@ int main(int argc, char* argv[])
     Detector detector;
     vector<Detection> detection;
     bool retFlag = detector.load(fileNode);
-    detector.read(fileNode);
-    detector.detect(img, img, detection);
+    vector<cv::Rect> vec;
+    //   vec.push_back(cv::Rect(0,0, 20, 20));
+    //    vec.push_back(cv::Rect(1,1,32,32));
+    Mat roiImg(vec);
+    bool isEmpty = roiImg.empty();
+    detector.detect(img, roiImg, detection); // note: roiImg is empty.
   
 
 

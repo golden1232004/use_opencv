@@ -7,7 +7,7 @@
     24 24</modelWinSize>
   <offset>
     0 0</offset>
-  <octaves>0</octaves>
+  <octaves>0 1 2</octaves>
   <positives>2370</positives>
   <negatives>1020</negatives>
   <btpNegatives>6364360</btpNegatives>
