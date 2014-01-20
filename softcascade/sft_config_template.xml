@@ -13,8 +13,8 @@
   <btpNegatives>6364360</btpNegatives>
   <shrinkage>1</shrinkage>
   <treeDepth>2</treeDepth>
-  <weaks>22</weaks>
-  <poolSize>10</poolSize>
+  <weaks>1000</weaks>
+  <poolSize>30000</poolSize>
   <cascadeName>"softcascade"</cascadeName>
   <outXmlPath>"/home/golden/Codes/opencv_xie/train/softcascade/softcascade_classifier.xml"</outXmlPath>
   <seed>30</seed>
