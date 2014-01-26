@@ -1,17 +1,25 @@
 #include "image_process.hpp"
+#include <algorithm>
 
 using namespace tk;
+using namespace std;
 
 ImageProcessor::ImageProcessor()
 {
+    m_width = IMAGE_MAX_WIDTH;
+    m_height = IMAGE_MAX_HEIGHT;
 }
-
-ImageProcessor::ImageProcessor(int width, int height)
+float ImageProcessor::getScale(const int width, const int height)
 {
-    m_width = width;
-    m_height = height;
-}
-float ImageProcessor::getScale(const int src_width, const int src_height)
-{
-
+    float scale = 1;
+    if (width >= height) {
+        scale = max(width/(float)m_width, height/(float)m_height);
+    }
+    else {
+        scale = max(width/(float)m_height, height/(float)m_width);
+    }
+    if (scale < 1) 
+        scale = 1;
+    m_scale = scale;
+    return scale;
 }

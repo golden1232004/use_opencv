@@ -3,11 +3,13 @@
 
 namespace tk{
 
+#define IMAGE_MAX_WIDTH (600)
+#define IMAGE_MAX_HEIGHT (450)
+
 class ImageProcessor{
 
 public:
     ImageProcessor();
-    ImageProcessor(int width, int height);
     virtual ~ImageProcessor();
     
 public:

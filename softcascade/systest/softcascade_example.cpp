@@ -40,6 +40,9 @@ int main(int argc, char* argv[])
 	    rectangle(img, p0, p1, Scalar(0,0,255), 3);
 	}
 	// resize;
+	int scale;
+	int dst_width = img.cols;
+	int dst_height = img.rows;
 	imshow("detect-face", img);
 	waitKey(0);
     }
