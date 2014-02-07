@@ -17,7 +17,6 @@
 
 #define CV_RANDOM_INVERT 0x7FFFFFFF
 
-
 int opencv_icvMkDir( const char* filename );
 
 /* returns index at specified position from index matrix of any type.

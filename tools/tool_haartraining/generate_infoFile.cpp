@@ -20,7 +20,9 @@ int main(int argc, char* argv[])
     }
     const int iBufLen = 1000;
     char tmpName[iBufLen]={'\0'};
-    while( !feof(listFile) && !feof(infoFile)){
+    int cnt = 0;
+    while(!feof(listFile)){
+        cnt++;
         if (fgets(tmpName, iBufLen, listFile)){
 	    int len = strlen(tmpName);
 	    if (!isprint(tmpName[len-1])){
@@ -36,4 +38,7 @@ int main(int argc, char* argv[])
 	int height = 24;
 	fprintf(infoFile, "%d %d %d %d\n", left, top, width, height);
     }
+    fclose(listFile);
+    fclose(infoFile);
+    return 1;
 }
