@@ -70,18 +70,11 @@ int main(int argc,char* argv[])
 	    printf("Error: open %s faild!\n", image_name.c_str());
 	    return -1;
 	}
-	vector<Rect> vRect = detectAndDisplay( image, isShow);
-	int size = vRect.size();
 	int pos = image_name.find_first_of(".");
 	string naked_name = image_name.substr(0, pos);
 	printf("%s\n", naked_name.c_str());
-        printf("%d\n", size);
-	if (size > 0){
-            
-	    for (int i = 0; i < size; i++){
-	      printf("%d %d %d %d\n", vRect[i].x, vRect[i].y, vRect[i].width, vRect[i].height);
-	    }
-	}
+	vector<Rect> vRect = detectAndDisplay( image, isShow);
+
     }
     fclose(fp);
     
