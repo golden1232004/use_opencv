@@ -1,12 +1,10 @@
 #include "opencv2/opencv.hpp"
+#include "function.h"
 
 using namespace std;
 using namespace cv;
 
-vector<Rect> detectAndDisplay( Mat frame, bool isShow);
-double getScale(int width, int height);
-
-CascadeClassifier face_cascade;
+vector<Rect> detectAndDisplay(CascadeClassifier& face_cascade, Mat frame, bool isShow);
 
 string dirName(const string& pathname, bool withLastSep)
 {
@@ -57,6 +55,7 @@ int main(int argc,char* argv[])
     bool isShow = parser.get<bool>("show");
     string dir = dirName(list_name, true);
     FILE* fp = fopen(list_name.c_str(), "r");
+    CascadeClassifier face_cascade;
     if (!face_cascade.load(face_cascade_name.c_str())){
         printf("Error: loading face cascade!\n");
         return -1;
@@ -73,16 +72,14 @@ int main(int argc,char* argv[])
 	int pos = image_name.find_first_of(".");
 	string naked_name = image_name.substr(0, pos);
 	printf("%s\n", naked_name.c_str());
-	vector<Rect> vRect = detectAndDisplay( image, isShow);
+	vector<Rect> vRect = detectAndDisplay(face_cascade, image, isShow);
 
     }
     fclose(fp);
     
 }
-vector<Rect> detectAndDisplay( Mat frame, bool isShow)
+vector<Rect> detectAndDisplay(CascadeClassifier& face_cascade, Mat frame, bool isShow)
 {
-#define WIDTH 1440
-#define HEIGHT 960
 
     std::vector<Rect> faces;
     Mat frame_gray;
@@ -92,7 +89,8 @@ vector<Rect> detectAndDisplay( Mat frame, bool isShow)
     equalizeHist( frame_gray, frame_gray );
 
     //-- Detect faces
-    face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0, Size(80, 80) );
+    float scaleFactor = 1.1;
+    face_cascade.detectMultiScale( frame_gray, faces, scaleFactor, 2, 0, Size(80, 80) );
     vector<Rect> vRect;
     for( size_t i = 0; i < faces.size(); i++ )
     {
@@ -105,7 +103,7 @@ vector<Rect> detectAndDisplay( Mat frame, bool isShow)
     }
     //-- Show what you got
     if (isShow){
-        double scale = getScale(frame.cols, frame.rows);
+      double scale = getScale(frame.cols, frame.rows);
 	Mat im_r;
 	if (scale > 1){
 	    resize(frame, im_r, Size(frame.cols / scale ,frame.rows / scale));
@@ -117,24 +115,5 @@ vector<Rect> detectAndDisplay( Mat frame, bool isShow)
 	waitKey(0);
     }
     return vRect;
-}
-double getScale(int width, int height)
-{
-    double scale = 1;
-    int dstWidth = WIDTH;
-    int dstHeight = HEIGHT;
-    if (width >= height) {
-        if (width > dstWidth  && height > dstHeight) {
-            scale = max(width/(double)dstWidth, height/(double)dstHeight);
-        }
-    }
-    else {
-        if (width > dstHeight && height > dstWidth) {
-            scale = max(width/(double)dstHeight, height/(double)dstWidth);
-        }
-    }
-    if (scale < 1) 
-        scale = 1;
-    return scale;
 }
 

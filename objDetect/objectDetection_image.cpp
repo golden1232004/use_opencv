@@ -1,12 +1,13 @@
 #include "opencv2/opencv.hpp"
+#include "opencv2/objdetect/objdetect_c.h"
+//#include "function.h"
 
 using namespace std;
 using namespace cv;
 
-void detectAndDisplay( Mat frame, bool isShow );
-double getScale(int width, int height);
-
-CascadeClassifier face_cascade;
+extern "C" double getScale(int width, int height);
+void detectAndDisplay(CascadeClassifier& face_cascade, Mat frame, bool isShow );
+//double getScale(int width, int height);
 
 int main(int argc,char* argv[])
 {
@@ -33,16 +34,17 @@ int main(int argc,char* argv[])
         return -1;
     }
     
-    
+    CascadeClassifier face_cascade;
     if (!face_cascade.load(face_cascade_name.c_str())){
         printf("Error: loading face cascade!\n");
         return -1;
     }
-    detectAndDisplay( image, isShow);
-     
+
+    detectAndDisplay(face_cascade, image, isShow);
+    printf("%s\n", image_name.c_str()); 
     
 }
-void detectAndDisplay( Mat frame , bool isShow)
+void detectAndDisplay(CascadeClassifier& face_cascade, Mat frame , bool isShow)
 {
 #define WIDTH 1440
 #define HEIGHT 960
@@ -56,7 +58,17 @@ void detectAndDisplay( Mat frame , bool isShow)
 
     //-- Detect faces
     Size* minSize =new Size(24, 24);
-    face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0, *minSize );
+    float scaleFactor = 1.26;
+    int flags = 0;// | CV_HAAR_SCALE_IMAGE ;// 0:scale feature; 2:scale image
+    double tic = getTickCount();
+    face_cascade.detectMultiScale( frame_gray, faces, scaleFactor, 2, flags, *minSize );
+    double toc = getTickCount();
+    if (flags == 0){
+        printf("scale feature elapsed time is %f\n", (toc - tic)/getTickFrequency());
+    }
+    else{
+        printf ("scale image elapsed time is %f\n", (toc-tic)/getTickFrequency());
+    }
     delete minSize;
     for( size_t i = 0; i < faces.size(); i++ )
     {
@@ -84,6 +96,7 @@ void detectAndDisplay( Mat frame , bool isShow)
 	waitKey(0);
     }
 }
+/*
 double getScale(int width, int height)
 {
     double scale = 1;
@@ -103,4 +116,4 @@ double getScale(int width, int height)
         scale = 1;
     return scale;
 }
-
+*/
