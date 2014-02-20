@@ -1,0 +1,23 @@
+#+TITLE: TrainCascade: Design and Implementation of the cascaded classifier of AdaBoost
+#+AUTHOR: Yantao Xie
+#+EMAIL: leeward.xie@gmail.com
+
+* Data File
+** the vec file
+   The *vec* file is used to store the positive samples. The *vec header* is defined as
+   #+BEGIN_SRC -n
+   struct VecFileHeader {
+       int count;    /* the count of the images. */
+       int vecSize;  /* the size of a image, i.e., equal to width*height. */
+       short reserved0;
+       short reserved1;
+   };
+   #+END_SRC
+   And the *vec file* is defined as
+   #+BEGIN_SRC -n
+   struct VecFile {
+       struct VecFileHeader  header;
+       short* data;
+   };
+   #+END_SRC
+   After the file header, there are the raw images data. The pixel bit-depth is *16*, i.e., short. These images are stored one by one and a image is stored row by row. But *NOTE* before each image, there's a byte inserted whose value is not used although.

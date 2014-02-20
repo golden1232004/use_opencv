@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><diagram program="umlet" version="11.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.SequenceDiagram</type>
+    <coordinates>
+      <x>10</x>
+      <y>180</y>
+      <w>1170</w>
+      <h>530</h>
+    </coordinates>
+    <panel_attributes>title: train
+_:CvCascadeClassifier~cc_|_tempStage:CvCascadeBoost~cb_|_tree:CvCascadeBoostTree~cbt_|_data:CvCascadeBoostTrainData~cbtd_
+iframe{:training strong(stage) classifiers
+cc-&gt;&gt;&gt;cb:cc,cb:&lt;&lt;create&gt;&gt;
+cb.&gt;cc:cc
+cc-&gt;&gt;&gt;cb:cc,cb:train
+cb-&gt;&gt;&gt;cbtd:cc,cb,cbtd:&lt;&lt;create&gt;&gt;
+cbtd.&gt;cb:cc,cb
+iframe{:training weak classifiers
+cb-&gt;&gt;&gt;cbt:cc,cb,cbt:&lt;&lt;create&gt;&gt;
+cbt.&gt;cb:cc,cb
+cb-&gt;&gt;&gt;cbt:cc,cb,cbt:train
+cbt.&gt;cb:cc,cb
+iframe}
+cb.&gt;cc:cc
+iframe}
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
