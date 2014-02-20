@@ -1,0 +1,27 @@
+#This code uses openCV functions very useful.
+#cvExtractSURF, cvFindHomography...
+
+* I made matching code to the class. Class file name is MareMatchingClass.h/cpp.
+  You can use my class in the source very easily.
+
+** 1. Create Matching class
+      CMareMatchingClass MMathing;    
+
+** 2. Input PatchImg
+      MMathing.ExtractPatchSurf(PatchImg);
+
+** 3. Find PatchImg in the background img
+      MMathing.GetObjectRectAndBestH(BackGroundImg, &rect4pt);
+
+** 4. Drawing the rect(rect4pt).
+** 5. Repeat, go to the 3.
+
+* The class is consist of like below process;
+1. Extract Feature -> use cvExtractSURF function
+2. Find Matching point
+3. Select some feature in the mached feature points, randomly.
+4. calculate Homography matrix. This is geometry relationship between patch and background image.
+5. transform features in the patch image by Homography matrix.
+6. compare the transformed features to the background features.
+7. evaluate how much is the homography exact.
+7. repeat 4~6 and select best H.
