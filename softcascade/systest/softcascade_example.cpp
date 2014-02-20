@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
     Mat img = imread(imgName);
     FileStorage fs(cfgName, cv::FileStorage::READ);
     if (!fs.isOpened()){
-        cout << "Configuration file" << cfgName << " can't be opened" << endl;
+        cout << "Configuration file " << cfgName << " can't be opened" << endl;
 	return -1;
     }
     FileNode fileNode = fs["softcascade"];

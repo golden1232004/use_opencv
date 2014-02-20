@@ -16,7 +16,7 @@
   <weaks>1000</weaks>
   <poolSize>30000</poolSize>
   <cascadeName>"softcascade"</cascadeName>
-  <outXmlPath>"/home/golden/Codes/opencv_xie/train/softcascade/softcascade_classifier.xml"</outXmlPath>
+  <outXmlPath>"/home/golden/Codes/opencv_xie/train/cascade_soft/softcascade_classifier.xml"</outXmlPath>
   <seed>30</seed>
   <featureType>"HOG6MagLuv"</featureType></softcascade>
 </opencv_storage>
