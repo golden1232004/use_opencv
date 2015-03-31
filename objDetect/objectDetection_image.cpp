@@ -6,8 +6,9 @@ using namespace std;
 using namespace cv;
 
 extern "C" double getScale(int width, int height);
-void detectAndDisplay(CascadeClassifier& face_cascade, Mat frame, bool isShow );
+std::vector<Rect> detectAndDisplay(CascadeClassifier& face_cascade, Mat& frame, bool isShow );
 //double getScale(int width, int height);
+string getRandomFileName(Rect rect);
 
 int main(int argc,char* argv[])
 {
@@ -15,6 +16,7 @@ int main(int argc,char* argv[])
         "{@image    |       | specify the image file name}"
 	"{@cascade  |       | specify the cascade file name,eg:cascade.xml}"
 	"{s show    |false  | show image}"
+	"{w write   |false  | save image}"
 	"{h help    |false  | print help.}"
     };
     CommandLineParser parser(argc, argv, keys);
@@ -26,6 +28,7 @@ int main(int argc,char* argv[])
     string image_name = parser.get<string>("@image");
     string face_cascade_name = parser.get<string>("@cascade");//"/home/golden/Codes/opencv_xie/opencv/data/lbpcascades/lbpcascade_frontalface.xml";
     bool isShow = parser.get<bool>("show");
+    bool isWrite = parser.get<bool>("write");
 
     
     Mat image = imread(image_name.c_str());
@@ -40,11 +43,19 @@ int main(int argc,char* argv[])
         return -1;
     }
 
-    detectAndDisplay(face_cascade, image, isShow);
+    std::vector<Rect> faces = detectAndDisplay(face_cascade, image, isShow);
+    if (faces.size() > 0 && isWrite){
+      int slash_idx = image_name.rfind("/");
+      std::string new_name = image_name.substr(slash_idx+1);
+      imwrite(new_name, image);
+      
+    }
+    
     printf("%s\n", image_name.c_str()); 
     
 }
-void detectAndDisplay(CascadeClassifier& face_cascade, Mat frame , bool isShow)
+std::vector<Rect> detectAndDisplay(CascadeClassifier& face_cascade, Mat& frame , 
+		      bool isShow)
 {
 #define WIDTH 1440
 #define HEIGHT 960
@@ -73,14 +84,16 @@ void detectAndDisplay(CascadeClassifier& face_cascade, Mat frame , bool isShow)
     for( size_t i = 0; i < faces.size(); i++ )
     {
         Mat faceROI = frame_gray( faces[i] );
-        //-- Draw the face
-	/*
-        Point center( faces[i].x + faces[i].width/2, faces[i].y + faces[i].height/2 );
-        ellipse( frame, center, Size( faces[i].width/2, faces[i].height/2 ), 0, 0, 360, Scalar( 255, 0, 0 ), 2, 8, 0 );
-	*/
+
+	Rect rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+	Mat img_ex = frame(rect);
+	string name = getRandomFileName(rect);
+	imwrite(name.c_str(), img_ex);
+#if 1
 	Point p0( faces[i].x, faces[i].y);
 	Point p1( faces[i].x + faces[i].width, faces[i].y + faces[i].height);
 	rectangle( frame, p0, p1, Scalar(0, 0, 255), 2);
+#endif
     }
     //-- Show what you got
     if (isShow){
@@ -95,6 +108,7 @@ void detectAndDisplay(CascadeClassifier& face_cascade, Mat frame , bool isShow)
         imshow( window_name.c_str(), im_r );
 	waitKey(0);
     }
+    return faces;
 }
 /*
 double getScale(int width, int height)
@@ -117,3 +131,32 @@ double getScale(int width, int height)
     return scale;
 }
 */
+string getRandomFileName(Rect rect)
+{
+    // assert(rect.x > 0 && rect.y > 0 && rect.width > 0 && rect.height > 0);
+    srand((int)time(NULL));
+    int rand_num = rand();
+    char name[100]={'\0'};
+    char name_tmp[50] = {'\0'};
+    int tmp;
+    if (rect.x == 0)
+        rect.x += rand() % 1000;
+    tmp= rand_num % rect.x;
+    sprintf(name_tmp, "%d", tmp);
+    strcpy(name, name_tmp);
+    memset(name_tmp, 0, strlen(name_tmp));
+    tmp = rand_num / rect.x;
+    sprintf(name_tmp, "%d", tmp);
+    strcat(name, name_tmp);
+    memset(name_tmp, 0, strlen(name_tmp));
+    strcat(name, "_");
+    sprintf(name_tmp, "%d", rect.x);
+    strcat(name, name_tmp);
+    memset(name_tmp, 0, strlen(name_tmp));
+    strcat(name, "_");
+    sprintf(name_tmp, "%d", rect.y);
+    strcat(name, name_tmp);
+    strcat(name, ".jpg");
+ 
+    return string(name);
+}

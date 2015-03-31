@@ -3,8 +3,9 @@
 
 using namespace std;
 using namespace cv;
+#define mstime(t0, t1) (double)((t1.tv_sec - t0.tv_sec) * 1000.0 + (t1.tv_nsec - t0.tv_nsec) / 1000000.0)
 
-vector<Rect> detectAndDisplay(CascadeClassifier& face_cascade, Mat frame, bool isShow);
+vector<Rect> detectAndDisplay(CascadeClassifier& face_cascade, Mat& frame, bool isShow);
 
 string dirName(const string& pathname, bool withLastSep)
 {
@@ -40,9 +41,10 @@ int main(int argc,char* argv[])
 {
     const char *keys={
         "{@list     |       | specify the image file name}"
-	"{@cascade  |       | specify the cascade file name,eg:cascade.xml}"
+        "{@cascade  |       | specify the cascade file name,eg:cascade.xml}"
         "{s show    |false  | show image}"
-	"{h help    |false  | print help.}"
+        "{w write   |false  | write image}"
+        "{h help    |false  | print help.}"
     };
     CommandLineParser parser(argc, argv, keys);
     if (parser.get<bool>("help") || argc < 2){
@@ -53,6 +55,7 @@ int main(int argc,char* argv[])
     string list_name = parser.get<string>("@list");
     string face_cascade_name = parser.get<string>("@cascade");//"/home/golden/Codes/opencv_xie/opencv/data/lbpcascades/lbpcascade_frontalface.xml";
     bool isShow = parser.get<bool>("show");
+    bool isWrite = parser.get<bool>("write");
     string dir = dirName(list_name, true);
     FILE* fp = fopen(list_name.c_str(), "r");
     CascadeClassifier face_cascade;
@@ -60,25 +63,41 @@ int main(int argc,char* argv[])
         printf("Error: loading face cascade!\n");
         return -1;
     }
-
+    string prefix = "/media/golden/acbfb53f-d6f3-4374-8fad-bc2f3c74ed6b/sample_base/FDDB/originalPics/";
+    FILE* f = fopen("time.txt", "a");
     while (!feof(fp)){
         string image_name = readLineFromListFile(fp);
-	string image_path = dir + image_name;
+        string image_path =  prefix + image_name + ".jpg";
         Mat image = imread(image_path.c_str());
-	if (image.empty()){
-	    printf("Error: open %s faild!\n", image_name.c_str());
-	    return -1;
-	}
-	int pos = image_name.find_first_of(".");
-	string naked_name = image_name.substr(0, pos);
-	printf("%s\n", naked_name.c_str());
-	vector<Rect> vRect = detectAndDisplay(face_cascade, image, isShow);
+        if (image.empty()){
+             printf("Error: open %s faild!\n", image_name.c_str());
+             return -1;
+        }
+        int pos = image_name.find_first_of(".");
+        string naked_name = image_name.substr(0, pos);
+        printf("%s\n", image_name.c_str());
+        struct timespec t0, t1;
+        clock_gettime(CLOCK_MONOTONIC, &t0);
+        vector<Rect> vRect = detectAndDisplay(face_cascade, image, isShow);
+        clock_gettime(CLOCK_MONOTONIC, &t1);
+        fprintf(f, "%s %.2f\n", image_name.c_str(), mstime(t0, t1));
+        printf("%d\n", vRect.size());
+        for (vector<Rect>::iterator it=vRect.begin(); it!=vRect.end();it++){
+             printf("%d %d %d %d %d\n", (*it).x, (*it).y, (*it).width, (*it).height, 1);
+        }
 
+        if (vRect.size() > 0 && isWrite){
+            int slash_idx = image_name.rfind("/");
+            std::string new_name = image_name.substr(slash_idx+1);
+            imwrite(new_name, image);
+        }
     }
     fclose(fp);
+    fclose(f);
+    
     
 }
-vector<Rect> detectAndDisplay(CascadeClassifier& face_cascade, Mat frame, bool isShow)
+vector<Rect> detectAndDisplay(CascadeClassifier& face_cascade, Mat& frame, bool isShow)
 {
 
     std::vector<Rect> faces;

@@ -46,7 +46,7 @@ struct CvCascadeBoostTrainData : CvDTreeTrainData
 
     const CvFeatureEvaluator* featureEvaluator;
     cv::Mat valCache; // precalculated feature values (CV_32FC1)
-    CvMat _resp; // for casting
+    CvMat _resp; // for casting,  class lable
     int numPrecalcVal, numPrecalcIdx;
 };
 

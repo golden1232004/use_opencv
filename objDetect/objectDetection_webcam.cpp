@@ -20,7 +20,7 @@ using namespace cv;
 void detectAndDisplay( Mat frame );
 
 /** Global variables */
-string face_cascade_name = "/home/golden/Codes/opencv_xie/opencv/data/lbpcascades/lbpcascade_frontalface.xml";
+string face_cascade_name = "/home/golden/Codes/opencv_xie/opencv/data/haarcascades/haarcascade_frontalface_alt2.xml";
 string eyes_cascade_name = "/home/golden/Codes/opencv_xie/opencv/data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
 CascadeClassifier face_cascade;
 CascadeClassifier eyes_cascade;
@@ -50,7 +50,7 @@ int main( void )
         }
 
         //-- 3. Apply the classifier to the frame
-        detectAndDisplay( frame );
+        detectAndDisplay(frame);
 
         //-- bail out if escape was pressed
         int c = waitKey(10);
@@ -68,7 +68,7 @@ void detectAndDisplay( Mat frame )
     Mat frame_gray;
 
     cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
-    equalizeHist( frame_gray, frame_gray );
+    //    equalizeHist( frame_gray, frame_gray );
 
     //-- Detect faces
     face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0, Size(80, 80) );
@@ -80,7 +80,7 @@ void detectAndDisplay( Mat frame )
 
         //-- In each face, detect eyes
         eyes_cascade.detectMultiScale( faceROI, eyes, 1.1, 2, 0 |CASCADE_SCALE_IMAGE, Size(30, 30) );
-        if( eyes.size() == 2)
+        if( eyes.size() == 2 || 1)
         {
             //-- Draw the face
             Point center( faces[i].x + faces[i].width/2, faces[i].y + faces[i].height/2 );

@@ -10,4 +10,8 @@ add_executable(objectDetection_image ./objectDetection_image.cpp)
 target_link_libraries(objectDetection_image ${OpenCV_LIBS} ${deps})
 add_executable(objectDetection_list ./objectDetection_list.cpp)
 target_link_libraries(objectDetection_list  ${OpenCV_LIBS} ${deps})
+add_executable(test-supres  ./test-supres.cpp)
+target_link_libraries(test-supres ${OpenCV_LIBS})
+add_executable(face-detector_on_webcam_based_opencv ./face-detector_on_webcam_based_opencv.cpp)
+target_link_libraries(face-detector_on_webcam_based_opencv ${OpenCV_LIBS})
 
