@@ -7,6 +7,7 @@ endif ()
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 
 include_directories(/usr/local/include/)  
 find_package(OpenCV REQUIRED)
@@ -37,3 +38,4 @@ if (BUILD_APP_IMAGE_MATCH)
   add_definitions(-DBUILD_APP_IMAGE_MATCH)
   add_subdirectory(image_match)
 endif()
+  add_subdirectory(apps)

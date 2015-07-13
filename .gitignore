@@ -183,3 +183,4 @@ sampels/*
 *.sig
 *.wav
 datas/*
+version.c

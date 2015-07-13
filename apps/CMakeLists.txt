@@ -1,0 +1,37 @@
+option (BUILD_APP_OCR "" OFF)
+option (BUILD_APP_IMAGE_VS_VIDEO "" OFF)
+
+## build static library
+option (BUILD_SHARED_LIBS "" ON)
+
+if (BUILD_SHARED_LIBS)
+  set(LIB_TYPE SHARED)
+else ()
+  set(LIB_TYPE STATIC)
+  add_definitions(-DSAK_STATIC)
+endif ()
+
+macro(ADD_APPS dirs)
+  foreach(dir ${dirs})
+    string (TOUPPER "${dir}" __dir)
+    string (REPLACE "-" "_" __dir ${__dir})
+    if (BUILD_APP_${__dir})
+      add_subdirectory(${dir})
+    endif ()
+  endforeach()
+  unset(__dir)
+endmacro()
+
+macro(SUBDIRLIST result curdir)
+  file(GLOB children RELATIVE ${curdir} "${curdir}/*")
+  set(dirlist "")
+  foreach(child ${children})
+    if(IS_DIRECTORY ${curdir}/${child})
+        set(dirlist ${dirlist} ${child})
+    endif()
+  endforeach()
+  set(${result} ${dirlist})
+endmacro()
+
+subdirlist(subdirs ${CMAKE_CURRENT_SOURCE_DIR})
+add_apps("${subdirs}")
