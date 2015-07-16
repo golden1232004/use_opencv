@@ -1,5 +1,6 @@
 option (BUILD_APP_OCR "" OFF)
 option (BUILD_APP_IMAGE_VS_VIDEO "" OFF)
+option (BUILD_APP_SIFT "" OFF)
 
 ## build static library
 option (BUILD_SHARED_LIBS "" ON)
