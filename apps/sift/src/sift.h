@@ -98,7 +98,7 @@ struct Keypoint
 extern "C" {
 #endif
 
-//void read_features(vector<Keypoint>&features, const char*file);//xx
+void read_features(vector<Keypoint>&features, const char*file);//xx
 void write_features(const vector<Keypoint>&features, const char*file);
 
 void testInverse3D();
