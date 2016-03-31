@@ -241,7 +241,7 @@ public:
     }
    // 获得当前帧的位置
     long getFrameNumber(){
-        long fnumber = static_cast<long>(caputure.get ((CAP_PROP_POS_FRAMES)));
+        long fnumber = static_cast<long>(caputure.get ((CV_CAP_PROP_POS_FRAMES)));
         return fnumber;
     }
 
@@ -249,8 +249,8 @@ public:
        Size getFrameSize() {
         if (images.size()==0) {
             // 从视频流获得帧大小
-            int w= static_cast<int>(caputure.get(CAP_PROP_FRAME_WIDTH));
-            int h= static_cast<int>(caputure.get(CAP_PROP_FRAME_HEIGHT));
+            int w= static_cast<int>(caputure.get(CV_CAP_PROP_FRAME_WIDTH));
+            int h= static_cast<int>(caputure.get(CV_CAP_PROP_FRAME_HEIGHT));
             return Size(w,h);
             }
         else {
@@ -262,7 +262,7 @@ public:
 
    //获取帧率
     double getFrameRate(){
-        return caputure.get(CAP_PROP_FPS);
+        return caputure.get(CV_CAP_PROP_FPS);
     }
     vector<string>::const_iterator itImg;
     bool setInput (const vector<string> &imgs){
@@ -289,7 +289,7 @@ public:
         } returned;
         //获得编码值
         returned.value= static_cast<int>(
-        caputure.get(CAP_PROP_FOURCC));
+        caputure.get(CV_CAP_PROP_FOURCC));
         // get the 4 characters
         codec[0]= returned.code[0];
         codec[1]= returned.code[1];
@@ -367,7 +367,7 @@ int main(int argc, char *argv[])
     VideoProcessor processor;
     FeatureTracker tracker;
     //打开输入视频
-    bool status = processor.setInput ("/home/golden/Desktop/vid/face2_origin.mp4");
+    bool status = processor.setInput ("/home/golden/Desktop/vid/output.mp4");
     if (!status)
         return -1;
     
