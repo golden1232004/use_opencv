@@ -3,6 +3,7 @@ option (BUILD_APP_IMAGE_VS_VIDEO "" OFF)
 option (BUILD_APP_SIFT "" OFF)
 option (BUILD_APP_KALMAN_FILTER "" OFF)
 option (BUILD_APP_OPTICAL_FLOW "" OFF)
+option (BUILD_APP_HOG "" OFF)
 
 ## build static library
 option (BUILD_SHARED_LIBS "" ON)
