@@ -1,6 +1,6 @@
 #include "MareMatchingClass.h"
 #include "opencv2/core.hpp"
-#include "opencv2/nonfree.hpp"
+//#include "opencv2/nonfree/nonfree.hpp"
 
 bool compare(const pair<int, double> &a, const pair<int, double> &b )
 {
@@ -188,7 +188,7 @@ bool CMareMatchingClass::ExtractPatchSurf(IplImage* img)
 	
 
 	cvClearMemStorage(PatchStorage);
-	bool flag = cv::initModule_nonfree();
+	//	bool flag = cv::initModule_nonfree();
 	cvExtractSURF(img, NULL, &Patch_Keypoints, &Patch_Descriptors, PatchStorage, params);
 
 	if( Patch_Keypoints->total == 0 )
@@ -808,7 +808,7 @@ bool CMareMatchingClass::IsOnTheLine(double x1, double y1, double x0, double y0,
 
 
 	if( e> 0.5)
-		false;
+   	    false;
 
 	return true;
 }
