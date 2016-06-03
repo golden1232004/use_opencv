@@ -364,10 +364,14 @@ public:
 
 int main(int argc, char *argv[])
 {
+    if (argc < 2){
+        printf("please input video file. eg: xxx.mp4\n");
+	exit(0);
+    }
     VideoProcessor processor;
     FeatureTracker tracker;
     //打开输入视频
-    bool status = processor.setInput ("/home/golden/Desktop/vid/output.mp4");
+    bool status = processor.setInput (argv[1]);
     if (!status)
         return -1;
     
