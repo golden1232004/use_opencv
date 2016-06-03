@@ -14,7 +14,7 @@
 #include "opencv2/superres/optical_flow.hpp"
 #include "opencv2/opencv_modules.hpp"
 
-#define HAVE_OPENCV_OCL
+//#define HAVE_OPENCV_OCL
 #if defined(HAVE_OPENCV_OCL)
 #include "opencv2/ocl/ocl.hpp"
 #endif
