@@ -1400,7 +1400,7 @@ void DrawKeyPoints(Mat &src, vector<Keypoint>& keypoints)
 	for(int i = 0; i < keypoints.size(); i++)
 	{
 	
-		CvScalar color = {255, 0 ,0};
+                CvScalar color = {255, 0 ,0, 0};
 		circle(src, Point(keypoints[i].dx, keypoints[i].dy), 3, color);
 		j++;
 	}
