@@ -76,11 +76,11 @@ int main(int argc,char* argv[])
         int pos = image_name.find_first_of(".");
         string naked_name = image_name.substr(0, pos);
         printf("%s\n", image_name.c_str());
-        struct timespec t0, t1;
-        clock_gettime(CLOCK_MONOTONIC, &t0);
+	//        struct timespec t0, t1;
+	//        clock_gettime(CLOCK_MONOTONIC, &t0);
         vector<Rect> vRect = detectAndDisplay(face_cascade, image, isShow);
-        clock_gettime(CLOCK_MONOTONIC, &t1);
-        fprintf(f, "%s %.2f\n", image_name.c_str(), mstime(t0, t1));
+	//        clock_gettime(CLOCK_MONOTONIC, &t1);
+	//        fprintf(f, "%s %.2f\n", image_name.c_str(), mstime(t0, t1));
         printf("%d\n", vRect.size());
         for (vector<Rect>::iterator it=vRect.begin(); it!=vRect.end();it++){
              printf("%d %d %d %d %d\n", (*it).x, (*it).y, (*it).width, (*it).height, 1);
