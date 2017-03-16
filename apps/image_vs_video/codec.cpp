@@ -3,7 +3,6 @@
 #include <sstream>
 #include "opencv2/opencv.hpp"
 #include "opencv2/highgui/highgui_c.h"
-#include "sak/ui/ui.hpp"
 
 using namespace std;
 using namespace cv;
@@ -94,7 +93,7 @@ int main(int argc, char* argv[])
         "{ p fps      |20    | set frame per second. }"
         "{ g gui      |false |Enable/disable GUI. }"
         "{ h help     |false |print help. }";
-    sak::ui::CommandLineParser parser = sak::ui::CommandLineParser(argc, argv, opt_keys);
+    CommandLineParser parser = CommandLineParser(argc, argv, opt_keys);
 
     if (parser.get<bool>("help")) {
         parser.printMessage();
