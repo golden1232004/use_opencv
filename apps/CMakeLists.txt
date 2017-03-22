@@ -5,6 +5,7 @@ option (BUILD_APP_KALMAN_FILTER "" OFF)
 option (BUILD_APP_OPTICAL_FLOW "" OFF)
 option (BUILD_APP_HOG "" OFF)
 option (BUILD_APP_EDGE_DETECTOR "" OFF)
+option (BUILD_APP_THIN "" OFF)
 
 ## build static library
 option (BUILD_SHARED_LIBS "" ON)
